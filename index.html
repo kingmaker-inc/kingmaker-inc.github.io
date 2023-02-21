@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+</head>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+ 
+    ym(92553078, "init", {
+         clickmap:true,
+         trackLinks:true,
+         accurateTrackBounce:true,
+         webvisor:true
+    });
+ </script>
+ <noscript><div><img src="https://mc.yandex.ru/watch/92553078" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+ <!-- /Yandex.Metrika counter -->
+<body>
+    <nav class="navbar fixed-top p-5">
+        <div class="container-fluid justify-content-end">
+            <img src="images/telegram.svg" width="30px" onclick="ym(92553078,'reachGoal','click_telegram'); window.open('https://t.me/+3PdsvPilLhoxZTUy')">
+            <div class="m-2"></div>
+            <img src="images/info-circle.svg" width="30px"
+            data-bs-toggle="modal" data-bs-target="#modalInfo"
+            onclick="ym(92553078,'reachGoal','click_info')">
+        </div>
+    </nav>
+
+    <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="modalInfoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalInfoLabel">Информация</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-secondary" role="alert">
+                        Сервис предоставляет статистику по категории "Новые игры" на площадке Яндекс.Игр.
+                    </div>
+                    <div class="alert alert-secondary" role="alert">
+                        Сервис находится в рамках βeta-тестирования, 
+                        поэтому могут наблюдаться некоторые баги, ошибки и неточности в работе сервиса.
+                    </div>
+                    <div class="alert alert-secondary" role="alert">
+                        Сервис не является официальным от "Яндекса".
+                    </div>
+                    <div class="alert alert-success" role="alert">
+                        О предложениях по улучшению сервиса можно писать в телеграмм-канале сервиса
+                    </div>
+                    <div class="alert alert-primary" role="alert">
+                        Так же там публикуются ежедневные уникальные от 
+                        сервиса отчёты (например, список новых игр и список вылетевших)
+                    </div>
+                    <div class="alert alert-danger" role="alert">
+                        Туда же можно писать об ошибках и багах сервиса
+                    </div>
+                    
+                    <div class="fw-bold p-2">Roadmap:</div> 
+                    <div class="alert alert-primary" role="alert">
+                        Статистика о примерных доходах с игр (подробнее, телеграмм-канал)
+                    </div>
+                    <div class="alert alert-primary" role="alert">
+                        Списки: новых и вылетевших игр, количество по категориям в категории "Новые игры"
+                    </div>
+                    <div class="alert alert-primary" role="alert">
+                        Отчёты в телеграмм-канал сервиса: рейтинги с сервиса
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-5">
+        <h1 class="h1 text-center">Яндекс.Игры Аналитика (βeta)</h1>
+        <h2 class="h2 text-center">Категория "Новые игры"</h2>
+    </div>
+
+    <div class="card py-5 mx-5">
+        <h2 class="pt-2 h3 text-center">Фильтры</h2>
+        <div>
+            <div class="d-flex justify-content-around"
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#filter_positions" 
+                aria-expanded="false" 
+                aria-controls="filter_positions"
+                data-filter="positions">
+                <h2 class="pt-2 h5 col-7">Рейтинг позиций</h2>
+                <img style="width: 30px;" src="images/filter.svg">
+            </div>
+            <div class="collapse show px-5" id="filter_positions">
+                <div class="d-flex justify-content-around">
+                    <div class="d-lg-flex justify-content-lg-around">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг позиций (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byPositions"
+                                data-filter-count="10"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Лидеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг позиций (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byPositions"
+                                data-filter-count="50"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Лидеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn"
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг позиций (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byPositions"
+                                data-filter-count="100"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Лидеры (100)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг позиций (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byPositions"
+                                data-filter-count="10"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Аутсайдеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг позиций (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byPositions"
+                                data-filter-count="50"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Аутсайдеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг позиций (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byPositions"
+                                data-filter-count="100"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Аутсайдеры (100)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-flex justify-content-around"
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#filter_ratings" 
+                aria-expanded="false" 
+                aria-controls="filter_ratings">
+                <h2 class="pt-2 h5 col-7">Рейтинг оценок</h2>
+                <img style="width: 30px;" src="images/filter.svg">
+            </div>
+            <div class="collapse px-5" id="filter_ratings">
+                <div class="d-flex justify-content-around">
+                    <div class="d-lg-flex justify-content-lg-around">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг оценок (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byRatings"
+                                data-filter-count="10"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Лидеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг оценок (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byRatings"
+                                data-filter-count="50"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Лидеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг оценок (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byRatings"
+                                data-filter-count="100"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Лидеры (100)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг оценок (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byRatings"
+                                data-filter-count="10"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Аутсайдеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг оценок (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byRatings"
+                                data-filter-count="50"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Аутсайдеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Рейтинг оценок (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byRatings"
+                                data-filter-count="100"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Аутсайдеры (100)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-flex justify-content-around"
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#filter_players" 
+                aria-expanded="false" 
+                aria-controls="filter_players">
+                <h2 class="pt-2 h5 col-7">Количество игроков</h2>
+                <img style="width: 30px;" src="images/filter.svg">
+            </div>
+            <div class="collapse px-5" id="filter_players">
+                <div class="d-flex justify-content-around">
+                    <div class="d-lg-flex justify-content-lg-around">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Количество игроков (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byPlayersCount"
+                                data-filter-count="10"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Лидеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Количество игроков (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byPlayersCount"
+                                data-filter-count="50"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Лидеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Количество игроков (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byPlayersCount"
+                                data-filter-count="100"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Лидеры (100)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Количество игроков (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byPlayersCount"
+                                data-filter-count="10"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Аутсайдеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Количество игроков (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byPlayersCount"
+                                data-filter-count="50"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Аутсайдеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Количество игроков (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byPlayersCount"
+                                data-filter-count="100"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Аутсайдеры (100)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <div class="d-flex justify-content-around"
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#delta_positions" 
+                aria-expanded="false" 
+                aria-controls="delta_positions">
+                <h2 class="pt-2 h5 col-7">Дельта позиций</h2>
+                <img style="width: 30px;" src="images/filter.svg">
+            </div>
+            <div class="collapse px-5" id="delta_positions">
+                <div class="d-flex justify-content-around">
+                    <div class="d-lg-flex justify-content-lg-around">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта позиций (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaPositions"
+                                data-filter-count="10"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Лидеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта позиций (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaPositions"
+                                data-filter-count="50"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Лидеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта позиций (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaPositions"
+                                data-filter-count="100"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Лидеры (100)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта позиций (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaPositions"
+                                data-filter-count="10"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Аутсайдеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта позиций (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaPositions"
+                                data-filter-count="50"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Аутсайдеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта позиций (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaPositions"
+                                data-filter-count="100"
+                                data-filter-value="positions"
+                                data-filter-reverse="true">
+                                Аутсайдеры (100)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-flex justify-content-around"
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#delta_players" 
+                aria-expanded="false" 
+                aria-controls="delta_players">
+                <h2 class="pt-2 h5 col-7">Дельта игроков</h2>
+                <img style="width: 30px;" src="images/filter.svg">
+            </div>
+            <div class="collapse px-5" id="delta_players">
+                <div class="d-flex justify-content-around">
+                    <div class="d-lg-flex justify-content-lg-around">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта игроков (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaPlayers"
+                                data-filter-count="10"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Лидеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта игроков (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaPlayers"
+                                data-filter-count="50"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Лидеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта игроков (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaPlayers"
+                                data-filter-count="100"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Лидеры (100)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта игроков (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaPlayers"
+                                data-filter-count="10"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Аутсайдеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта игроков (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaPlayers"
+                                data-filter-count="50"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Аутсайдеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта игроков (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaPlayers"
+                                data-filter-count="100"
+                                data-filter-value="players"
+                                data-filter-reverse="false">
+                                Аутсайдеры (100)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-flex justify-content-around"
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#delta_ratings" 
+                aria-expanded="false" 
+                aria-controls="delta_ratings">
+                <h2 class="pt-2 h5 col-7">Дельта оценок</h2>
+                <img style="width: 30px;" src="images/filter.svg">
+            </div>
+            <div class="collapse px-5" id="delta_ratings">
+                <div class="d-flex justify-content-around">
+                    <div class="d-lg-flex justify-content-lg-around">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта оценок (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaRating"
+                                data-filter-count="10"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Лидеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта оценок (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaRating"
+                                data-filter-count="50"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Лидеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-primary m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта оценок (лидеры)"
+                                data-filter-leaders="true"
+                                data-filter-dataset="games_byDeltaRating"
+                                data-filter-count="100"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Лидеры (100)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-lg-flex">
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта оценок (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaRating"
+                                data-filter-count="10"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Аутсайдеры (10)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта оценок (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaRating"
+                                data-filter-count="50"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Аутсайдеры (50)
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button 
+                                class="btn btn-outline-danger m-2 filter_btn" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chart" 
+                                aria-expanded="false" 
+                                aria-controls="chart"
+                                data-filter-title="Дельта оценок (аутсайдеры)"
+                                data-filter-leaders="false"
+                                data-filter-dataset="games_byDeltaRating"
+                                data-filter-count="100"
+                                data-filter-value="ratings"
+                                data-filter-reverse="false">
+                                Аутсайдеры (100)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse show py-2 px-5" id="chart_card">
+        <div class="card card-body">
+            <div id="canvas_container">
+                <canvas id="chart"></canvas>
+            </div>
+            <div id="container_list" class="d-flex justify-content-center">
+                <div>
+                    <h6 class="h6 d-flex">
+                        <a href="" target="_blank" style="margin-right: 10%"> Games</a>
+                        <div style="margin-right: 10%">0</div>
+                        <img style="width: 30px;" src="images/graph-up-arrow.svg"> 
+                        <div style="color: green; margin-right: 10%;">+1</div>
+                        <div>1</div>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h5 class="h5 text-center p-5">@SWE Veriga Ivan</h5>
+    </div>
+</body>
+</html>
+
+<script src="bundle.js"></script>
